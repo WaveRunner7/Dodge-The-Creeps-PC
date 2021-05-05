@@ -11,7 +11,7 @@ It is a game intended to demonstrate the following fundamental concepts of Godot
 *  UI
 
 
-In This Version There Are:
+In This Version There It Contains The Following Quality Of Life Improvements:
  - Controller Support.
  - key prompts for controller and keyboard
  - AND SOME WIDESCREEN!!!
