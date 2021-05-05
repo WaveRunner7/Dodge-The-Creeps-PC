@@ -1,0 +1,133 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://HUD.gd" type="Script" id=2]
+[ext_resource path="res://A.gd" type="Script" id=3]
+[ext_resource path="res://B.gd" type="Script" id=4]
+[ext_resource path="res://dodge_assets/Xbox One/XboxOne_B.png" type="Texture" id=5]
+[ext_resource path="res://dodge_assets/Dark/Space_Key_Dark.png" type="Texture" id=6]
+[ext_resource path="res://dodge_assets/Dark/Esc_Key_Dark.png" type="Texture" id=7]
+[ext_resource path="res://dodge_assets/Xbox One/XboxOne_A.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="InputEventAction" id=2]
+action = "ui_select"
+
+[sub_resource type="ShortCut" id=3]
+shortcut = SubResource( 2 )
+
+[sub_resource type="InputEventAction" id=4]
+action = "quit"
+
+[sub_resource type="ShortCut" id=5]
+shortcut = SubResource( 4 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Space",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "A",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "B",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Esc",
+"speed": 5.0
+} ]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 78.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -79.5
+margin_right = 640.0
+margin_bottom = 79.5
+custom_fonts/font = SubResource( 1 )
+text = "Dodge the Creeps!"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -300.0
+margin_right = 90.0
+margin_bottom = -200.0
+custom_fonts/font = SubResource( 1 )
+shortcut = SubResource( 3 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -160.0
+margin_right = 90.0
+margin_bottom = -60.0
+custom_fonts/font = SubResource( 1 )
+shortcut = SubResource( 5 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="A" type="AnimatedSprite" parent="."]
+position = Vector2( 802.215, 464.175 )
+frames = SubResource( 6 )
+animation = "Space"
+script = ExtResource( 3 )
+
+[node name="B" type="AnimatedSprite" parent="."]
+position = Vector2( 802.215, 600 )
+frames = SubResource( 7 )
+animation = "Esc"
+script = ExtResource( 4 )
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_MessageTimer_timeout"]
